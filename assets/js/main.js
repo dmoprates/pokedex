@@ -1,8 +1,28 @@
 const offset = 0
 const limit = 10
 
-const url = 'https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}'
+const url = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`
 
-fetch(url).then(function (response){
-    console.log(response)
+function convertPokemonToLi(pokemon) {
+    return `
+        <li class="pokemon">
+            <span class="number">#001</span>
+            <span class="name">${pokemon.name}</span>
+        <div class="detail">
+            <ol class="types">
+                <li class="type">grass</li>
+                <li class="type">poison</li>
+            </ol>
+            <img src="https://www.pngplay.com/wp-content/uploads/10/Bulbasaur-Pokemon-No-Background-Clip-Art.png" alt="${pokemon.name}">
+
+        </div>
+        </li >
+    `
+}
+
+const pokemonList = document.getElementById('pokemonList')
+
+pokeApi.getpokemons().then((pokemons = []) => {
+    const newHtml = pokemons.map(convertPokemonToLi).join('')
+    pokemonList.innerHTML = newHtml
 })
